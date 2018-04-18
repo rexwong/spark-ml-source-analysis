@@ -2,53 +2,57 @@
 
 ## 1 二元逻辑回归
 
-&emsp;&emsp;回归是一种很容易理解的模型，就相当于`y=f(x)`，表明自变量`x`与因变量`y`的关系。最常见问题如医生治病时的望、闻、问、切，之后判定病人是否生病或生了什么病，
-其中的望、闻、问、切就是获取的自变量`x`，即特征数据，判断是否生病就相当于获取因变量`y`，即预测分类。最简单的回归是线性回归，但是线性回归的鲁棒性很差。
+回归是一种很容易理解的模型，就相当于$y=f(x)$，表明自变量 $x$ 与因变量 $y$ 的关系。最常见问题如医生治病时的望、闻、问、切，之后判定病人是否生病或生了什么病，其中的望、闻、问、切就是获取的自变量 $x$ ，即特征数据，判断是否生病就相当于获取因变量 $y$，即预测分类。最简单的回归是线性回归，但是线性回归的鲁棒性很差。
 
-&emsp;&emsp;逻辑回归是一种减小预测范围，将预测值限定为`[0,1]`间的一种回归模型，其回归方程与回归曲线如下图所示。逻辑曲线在`z=0`时，十分敏感，在`z>>0`或`z<<0`时，都不敏感。
+逻辑回归是一种减小预测范围，将预测值限定为`[0,1]`间的一种回归模型，其回归方程与回归曲线如下图所示。逻辑曲线在`z=0`时，十分敏感，在`z>>0`或`z<<0`时，都不敏感。
 
-<div  align="center"><img src="imgs/1.1.png" width = "590" height = "300" alt="1.1" align="center" /></div><br>
+<div  align="left"><img src="imgs/1.1.png" width = "590" height = "300" alt="1.1" align="center" /></div>
 
-&emsp;&emsp;逻辑回归其实是在线性回归的基础上，套用了一个逻辑函数。上图的`g(z)`就是这个逻辑函数(或称为`Sigmoid`函数)。下面左图是一个线性的决策边界，右图是非线性的决策边界。
+&emsp;&emsp;逻辑回归其实是在线性回归的基础上，套用了一个逻辑函数。上图的 $g(z)$ 就是这个逻辑函数(或称为`Sigmoid`函数)。下面左图是一个线性的决策边界，右图是非线性的决策边界。
 
-<div  align="center"><img src="imgs/1.2.png" width = "700" height = "280" alt="1.2" align="center" /></div><br>
+<div  align="center"><img src="imgs/1.2.png" width = "700" height = "280" alt="1.2" align="center" /></div>
 
-&emsp;&emsp;对于线性边界的情况，边界形式可以归纳为如下公式 **(1)**:
+对于线性边界的情况，边界形式可以归纳为如下公式 **(1)**:
 
-<div  align="center"><img src="imgs/1.3.png" width = "300" height = "60" alt="1.3" align="center" /></div><br>
+$\theta_{0}+\theta_{1}x_{1}+,...,+\theta_{n}x_{n}=\sum_{i=1}^{n}\theta_{i}x_{i}=\theta^{T}x$
 
-&emsp;&emsp;因此我们可以构造预测函数为如下公式 **(2)**:
+因此我们可以构造预测函数为如下公式 **(2)**:
 
-<div  align="center"><img src="imgs/1.4.png" width = "250" height = "70" alt="1.4" align="center" /></div><br>
+$h_{\theta }(x)=g(\theta^{T}x)=\frac{1}{1+e^{-\theta^{T}x}}$
 
-&emsp;&emsp;该预测函数表示分类结果为1时的概率。因此对于输入点`x`，分类结果为类别1和类别0的概率分别为如下公式 **(3)**：
+该预测函数表示分类结果为1时的概率。因此对于输入点x，分类结果为类别1和类别0的概率分别为如下公式 (3)：
 
-<div  align="center"><img src="imgs/1.5.png" width = "220" height = "55" alt="1.5" align="center" /></div><br>
+$P(y=1|x;\theta)=h_{\theta}(x)$
 
-&emsp;&emsp;对于训练数据集，特征数据`x={x1, x2, … , xm}`和对应的分类数据`y={y1, y2, … , ym}`。构建逻辑回归模型`f`，最典型的构建方法便是应用极大似然估计。对公式 **(3)** 取极大似然函数，可以得到如下的公式 **(4)**:
+$P(y=0|x;\theta)=1-h_{\theta}(x)$
 
-<div  align="center"><img src="imgs/1.6.png" width = "350" height = "45" alt="1.6" align="center" /></div><br>
+对于训练数据集，特征数据$x=\left \{ x_1,x_2,…,x_m \right \}$和对应的分类数据$y=\left \{ y_1,y_2,…,y_m \right \}$。构建逻辑回归模型$f$，最典型的构建方法便是应用极大似然估计。对公式 **(3)** 取极大似然函数，可以得到如下的公式 **(4)**:
 
-&emsp;&emsp;再对公式 **(4)** 取对数，可得到公式 **(5)**：
+$L(\theta)=\prod_{i=1}^{m}P(y_i|x_i;\theta)=\prod_{i=1}^{m}(h_{\theta}(x_i))^{y_i}(1-h_{\theta}(x_i))^{1-y_i}$  ==*likelihood function*==
 
-<div  align="center"><img src="imgs/1.7.png" width = "450" height = "50" alt="1.7" align="center" /></div><br>
+再对公式 **(4)** 取对数，可得到公式 **(5)**：
 
-&emsp;&emsp;最大似然估计就是求使`l`取最大值时的`theta`。`MLlib`中提供了两种方法来求这个参数，分别是[梯度下降法](../../../最优化算法/梯度下降/gradient-descent.md)和[L-BFGS](../../../最优化算法/L-BFGS/lbfgs.md)。
+$l(\theta)=\log L(\theta)=\sum_{i=1}^{m}(y_{i}\log h_{\theta}(x_i)+(1-y_i)\log (1-h_{\theta}(x_i)))$
+
+最大似然估计就是求使 $l​$ 取最大值时的 $\theta​$。`MLlib`中提供了两种方法来求这个参数，分别是[梯度下降法](../../../最优化算法/梯度下降/gradient-descent.md)和[L-BFGS](../../../最优化算法/L-BFGS/lbfgs.md)。
 
 ## 2 多元逻辑回归
 
-&emsp;&emsp;二元逻辑回归可以一般化为[多元逻辑回归](http://en.wikipedia.org/wiki/Multinomial_logistic_regression)用来训练和预测多分类问题。对于多分类问题，算法将会训练出一个多元逻辑回归模型，
-它包含`K-1`个二元回归模型。给定一个数据点，`K-1`个模型都会运行，概率最大的类别将会被选为预测类别。
+二元逻辑回归可以一般化为[多元逻辑回归](http://en.wikipedia.org/wiki/Multinomial_logistic_regression)用来训练和预测多分类问题。对于多分类问题，算法将会训练出一个多元逻辑回归模型，它包含`K-1`个二元回归模型。给定一个数据点，`K-1`个模型都会运行，概率最大的类别将会被选为预测类别。
 
-&emsp;&emsp;对于输入点`x`，分类结果为各类别的概率分别为如下公式 **(6)** ，其中`k`表示类别个数。
+对于输入点 $x$，分类结果为各类别的概率分别为如下公式 **(6)** ，其中`k`表示类别个数。
 
-<div  align="center"><img src="imgs/2.1.png" width = "330" height = "175" alt="2.1" align="center" /></div><br>
+$p(y=0|x;w)=\frac{1}{1+\sum_{i=1}^{k-1}e^{xw_i}}$
 
-&emsp;&emsp;对于`k`类的多分类问题，模型的权重`w = (w_1, w_2, ..., w_{K-1})`是一个矩阵，如果添加截距，矩阵的维度为`(K-1) * (N+1)`，否则为`(K-1) * N`。单个样本的目标函数的损失函数可以写成如下公式 **(7)** 的形式。
+$p(y=1|x;w)=\frac{e^{xw_1}}{1+\sum_{i=1}^{k-1}e^{xw_i}}$
 
-<div  align="center"><img src="imgs/2.2.png" width = "720" height = "170" alt="2.2" align="center" /></div><br>
+$p(y=k-1|x;w)=\frac{e^{xw_{k-1}}}{1+\sum_{i=1}^{k-1}e^{xw_i}}$
 
-&emsp;&emsp;对损失函数求一阶导数，我们可以得到下面的公式 **(8)**:
+对于 $k$类的多分类问题，模型的权重$w=(w_1,w_2,…,w_{k-1})$是一个矩阵，如果添加截距，矩阵的维度为$(K-1) * (N+1)$，否则为$(K-1) * N$。单个样本的目标函数的损失函数可以写成如下公式 **(7)** 的形式。
+
+$l(w,x)=-\log p(y|x,w)=-a_y\log p(y=0|x;w)-(1-a_y)\log p(y|x;w)=\log (1+\sum_{i=1}^{k-1}e^{xw_i})-(1-a_y)xw_{y-1}\\=\log (1+\sum_{i=1}^{k-1}e^{margins_i})-(1-a_y)margins_{y-1}\ , \left\{\begin{matrix}a_y=1, if \ y=0\\ a_y=0, if \ y\neq 0\end{matrix}\right.$
+
+&emsp对损失函数求一阶导数，我们可以得到下面的公式 **(8)**:
 
 <div  align="center"><img src="imgs/2.3.png" width = "570" height = "140" alt="2.3" align="center" /></div><br>
 
