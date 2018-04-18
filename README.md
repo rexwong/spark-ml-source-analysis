@@ -80,6 +80,8 @@
        * [VectorSlicer](特征抽取和转换/VectorSlicer.md)
        * [RFormula](特征抽取和转换/RFormula.md)
        * [ChiSqSelector(卡方选择器)](特征抽取和转换/chi-square-selector.md)
+    * [频繁模式挖掘](频繁模式挖掘/FP-Growth.md)
+       * [FP-Growth](频繁模式挖掘/FP-Growth.md)
 
     
 ## 说明
