@@ -26,15 +26,15 @@ $P(y=1|x;\theta)=h_{\theta}(x)$
 
 $P(y=0|x;\theta)=1-h_{\theta}(x)$
 
-对于训练数据集，特征数据$x=\left \{ x_1,x_2,…,x_m \right \}$和对应的分类数据$y=\left \{ y_1,y_2,…,y_m \right \}$。构建逻辑回归模型$f$，最典型的构建方法便是应用极大似然估计。对公式 **(3)** 取极大似然函数，可以得到如下的公式 **(4)**:
+对于训练数据集，特征数据$x=\{ x_1,x_2,…,x_m\}$和对应的分类数据$y= \{ y_1,y_2,…,y_m\}$。构建逻辑回归模型$f$，最典型的构建方法便是应用极大似然估计。对公式 **(3)** 取极大似然函数，可以得到如下的公式 **(4)**:
 
 $L(\theta)=\prod_{i=1}^{m}P(y_i|x_i;\theta)=\prod_{i=1}^{m}(h_{\theta}(x_i))^{y_i}(1-h_{\theta}(x_i))^{1-y_i}$  ==*likelihood function*==
 
 再对公式 **(4)** 取对数，可得到公式 **(5)**：
 
-$l(\theta)=\log L(\theta)=\sum_{i=1}^{m}(y_{i}\log h_{\theta}(x_i)+(1-y_i)\log (1-h_{\theta}(x_i)))$
+$l(\theta)=\log L(\theta)=\sum_{i=1}^{m}(y_{i}\log h_{\theta}(x_i)+(1-y_i)\log (1-h_{\theta}(x_i)))​$
 
-最大似然估计就是求使 $l​$ 取最大值时的 $\theta​$。`MLlib`中提供了两种方法来求这个参数，分别是[梯度下降法](../../../最优化算法/梯度下降/gradient-descent.md)和[L-BFGS](../../../最优化算法/L-BFGS/lbfgs.md)。
+最大似然估计就是求使 $l$ 取最大值时的 $\theta$。`MLlib`中提供了两种方法来求这个参数，分别是[梯度下降法](../../../最优化算法/梯度下降/gradient-descent.md)和[L-BFGS](../../../最优化算法/L-BFGS/lbfgs.md)。
 
 ## 2 多元逻辑回归
 
